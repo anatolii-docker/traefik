@@ -22,9 +22,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.nginx1.rule=Host(`site1.fedorov.parseq.pro`)"
       - "traefik.http.routers.nginx1.entrypoints=websecure"
-     # - "traefik.http.routers.nginx1.tls=true"
       - "traefik.http.routers.nginx1.tls.certresolver=letsencrypt"
-     # - "traefik.http.services.nginx1.loadbalancer.server.port=81"
     
   nginx2:
     image: "nginx:latest"
@@ -35,7 +33,5 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.nginx2.rule=Host(`site2.fedorov.parseq.pro`)"
       - "traefik.http.routers.nginx2.entrypoints=websecure"
-    #  - "traefik.http.routers.nginx2.tls=true"
       - "traefik.http.routers.nginx2.tls.certresolver=letsencrypt"
-     # - "traefik.http.services.nginx2.loadbalancer.server.port=80"
     

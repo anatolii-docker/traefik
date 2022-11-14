@@ -1,0 +1,41 @@
+version: "3.3"
+
+services:
+
+  traefik:
+    image: "traefik:v2.9"
+    container_name: "traefik"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.toml:/etc/traefik/traefik.toml"
+      - "./letsencrypt:/letsencrypt"
+ 
+  nginx1:
+    image: "nginx:latest"
+    container_name: "nginx1"
+    volumes:
+      - /home/zus139/traefik/site1/index.html:/usr/share/nginx/html/index.html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx1.rule=Host(`site1.fedorov.parseq.pro`)"
+      - "traefik.http.routers.nginx1.entrypoints=websecure"
+     # - "traefik.http.routers.nginx1.tls=true"
+      - "traefik.http.routers.nginx1.tls.certresolver=letsencrypt"
+     # - "traefik.http.services.nginx1.loadbalancer.server.port=81"
+    
+  nginx2:
+    image: "nginx:latest"
+    container_name: "nginx2"
+    volumes:
+      - /home/zus139/traefik/site2/index.html:/usr/share/nginx/html/index.html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx2.rule=Host(`site2.fedorov.parseq.pro`)"
+      - "traefik.http.routers.nginx2.entrypoints=websecure"
+    #  - "traefik.http.routers.nginx2.tls=true"
+      - "traefik.http.routers.nginx2.tls.certresolver=letsencrypt"
+     # - "traefik.http.services.nginx2.loadbalancer.server.port=80"
+    

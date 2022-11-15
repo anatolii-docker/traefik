@@ -7,4 +7,4 @@
  - в volumes смонтируйте свой сайт;
  - в Host(`site.fedorov.parseq.pro`) - вставте название своего домена.
  
-Перазапуск проекта: sudo docker-compose dwon && sudo docker-compose up -d
+Перазапуск проекта: sudo docker-compose down && sudo docker-compose up -d
